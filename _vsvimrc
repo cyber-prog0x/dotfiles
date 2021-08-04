@@ -1,0 +1,35 @@
+" Dean's VsVim Config
+" 2021.08.04
+
+set number
+set showcmd
+set cursorline
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+let mapleader = "\<space>"
+let g:mapleader = "\<space>"
+
+nnoremap <leader>nl :nohls<cr>
+:imap jj <Esc>
+
+" comment
+vnoremap <leader>cc :s/^/\/\/<cr>         
+nnoremap <leader>cc :s/^/\/\/<cr>         
+vnoremap <leader>cu :s/\/\//<cr>         
+nnoremap <leader>cu :s/\/\//<cr>
+
+nnoremap <leader>gd :vsc Edit.GoToDeclaration <C-r><C-w><cr>
+inoremap <leader>gd <ESC>:vsc Edit.GoToDeclaration <C-r><C-w><cr>
+
+" back
+nnoremap <leader>gb :vsc View.NavigateBackward<CR> 
+" " forward
+nnoremap <leader>fw :vsc View.NavigateForward<cr>
+
+" format
+nnoremap <leader>fm :vsc Edit.FormatDocument<CR>
+vnoremap <leader>fm :vsc Edit.FormatSelection<CR>
