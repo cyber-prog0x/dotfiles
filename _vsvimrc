@@ -16,11 +16,20 @@ let g:mapleader = "\<space>"
 nnoremap <leader>nl :nohls<cr>
 :imap jj <Esc>
 
+" save in insert mode
+inoremap <leader>w <Esc>:w<cr>i
+
 " comment
-vnoremap <leader>cc :s/^/\/\/<cr>         
-nnoremap <leader>cc :s/^/\/\/<cr>         
-vnoremap <leader>cu :s/\/\//<cr>         
-nnoremap <leader>cu :s/\/\//<cr>
+"vnoremap <leader>cc :s/^/\/\/<cr>         
+"nnoremap <leader>cc :s/^/\/\/<cr>         
+"vnoremap <leader>cu :s/\/\//<cr>         
+"nnoremap <leader>cu :s/\/\//<cr>
+
+nnoremap <leader>cc :vsc <C-k><C-c>
+vnoremap <leader>cc :vsc <C-k><C-c>
+nnoremap <leader>cu :vsc <C-k><C-u>
+vnoremap <leader>cu :vsc <C-k><C-u>
+
 
 nnoremap <leader>gd :vsc Edit.GoToDeclaration <C-r><C-w><cr>
 inoremap <leader>gd <ESC>:vsc Edit.GoToDeclaration <C-r><C-w><cr>
