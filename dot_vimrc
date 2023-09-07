@@ -1,0 +1,138 @@
+"__     ___              __               ____    ______            
+"\ \   / (_)_ __ ___    / _| ___  _ __   / ___|  / / ___| _     _   
+" \ \ / /| | '_ ` _ \  | |_ / _ \| '__| | |     / / |   _| |_ _| |_ 
+"  \ V / | | | | | | | |  _| (_) | |    | |___ / /| |__|_   _|_   _|
+"   \_/  |_|_| |_| |_| |_|  \___/|_|     \____/_/  \____||_|   |_|  
+"                                                                   
+" dean's latest vim configuration for c/c++ development
+" date: 20230907
+"
+" basic config
+set nocompatible
+set backspace=indent,eol,start
+
+" vim 代码折叠功能
+" set foldmethod=indent
+
+set number " 设置绝对行号
+set relativenumber " 设置相对行号
+set cursorline "突出显示当前行
+" set cursorcolumn " 突出显示当前列
+set showmatch " 显示括号匹配
+
+set nospell
+
+" tab 缩进
+set tabstop=4 " 设置Tab长度为4空格
+set shiftwidth=4 " 设置自动缩进长度为4空格
+set autoindent " 继承前一行的缩进方式，适用于多行注释
+
+" 定义快捷键的前缀，即<Leader>
+" let mapleader=";"
+
+" ==== 系统剪切板复制粘贴 ====
+" v 模式下复制内容到系统剪切板
+vmap <M-c> "+yy
+" n 模式下复制一行到系统剪切板
+nmap <M-c> "+yy
+" n 模式下粘贴系统剪切板的内容
+nmap <M-v> "+p
+
+
+"开启实时搜索
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase
+syntax enable
+syntax on                    " 开启文件类型侦测
+filetype plugin indent on    " 启用自动补全
+
+" 退出插入模式指定类型的文件自动保存
+au InsertLeave *.go,*.sh,*.h,*.py,*.cpp,*.hpp write
+
+set guifont=Hack\ Nerd\ Font\ Mono:h14 
+" 编码自动识别
+let &termencoding=&encoding 
+" set fileencodings=utf-8,gbk,ucs-bom,cp936 
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'dense-analysis/ale'
+Plug 'morhetz/gruvbox'
+Plug 'preservim/nerdcommenter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'babaybus/DoxygenToolkit.vim'
+
+" Plug 'Yggdroot/LeaderF'
+
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" You can revert the settings after the call like so:
+"   filetype indent off   " Disable file-type-specific indentation
+"   syntax off            " Disable syntax highlighting
+
+
+set background=dark " 主题背景 dark-深色; light-浅色
+colorscheme gruvbox
+
+let g:python3_host_prog="/usr/local/bin/python3"
+
+" config from https://www.skywind.me/blog/archives/2084
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c98'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+let g:ale_sign_error = "\ue009\ue009"
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
+
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+
+noremap <c-z> <NOP>
+
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
