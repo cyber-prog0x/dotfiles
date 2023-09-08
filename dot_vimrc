@@ -78,6 +78,11 @@ Plug 'preservim/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'babaybus/DoxygenToolkit.vim'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'mhinz/vim-startify'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'preservim/tagbar'
 
 " Plug 'Yggdroot/LeaderF'
 
@@ -117,6 +122,10 @@ hi! SpellBad gui=undercurl guisp=red
 hi! SpellCap gui=undercurl guisp=blue
 hi! SpellRare gui=undercurl guisp=magenta
 
+nnoremap <c-k> :YcmCompleter GoToDeclaration<CR>
+nnoremap <c-h> :YcmCompleter GoToDefinition<CR>
+nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_global_ycm_extra_conf='/home/dean/.vim/.ycm_extra_conf.py'
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_server_log_level = 'info'
@@ -135,4 +144,41 @@ let g:ycm_semantic_triggers =  {
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" 开启tabline
+let g:airline#extensions#tabline#enabled = 1      "tabline中当前
+let g:airline#extensions#tabline#left_sep = ' '   "buffer两端的分隔字符
+let g:airline#extensions#tabline#left_alt_sep = '>'      "tabline中
+let g:airline#extensions#tabline#buffer_nr_show = 1      "buffer显示编号
+
+"<leader>1~9 切到 buffer1~9
+nnoremap <leader>1 :b 1<CR>
+nnoremap <leader>2 :b 2<CR>
+nnoremap <leader>3 :b 3<CR>
+nnoremap <leader>4 :b 4<CR>
+nnoremap <leader>5 :b 5<CR>
+nnoremap <leader>6 :b 6<CR>
+nnoremap <leader>7 :b 7<CR>
+nnoremap <leader>8 :b 8<CR>
+nnoremap <leader>9 :b 9<CR>
+
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+" open configuration
+nnoremap <silent> <leader><space>c :e ~/.vimrc<CR>
+
+" set code snippets
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+set runtimepath+=~/.vim/vim-snips
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "vim-snips"]
+
+" gutentag
+set statusline+=%{gutentags#statusline()}
+
+let g:tagbar_ctags_bin = "/usr/local/bin/ctags"
+nmap <leader>tt :TagbarToggle<CR>
 
